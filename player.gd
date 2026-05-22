@@ -2,6 +2,14 @@ extends CharacterBody2D
 
 @export var speed = 400
 
+func _ready():
+	# get center coords of screen
+	var center_position = get_viewport_rect().size / 2
+	
+	# 
+	position = center_position
+
+
 func get_input():
 	look_at(get_global_mouse_position())
 	velocity = transform.x * Input.get_axis("down", "move_forward") * speed
@@ -9,7 +17,11 @@ func get_input():
 func _physics_process(delta):
 	get_input()
 	move_and_slide()
-	grow()
+
 
 func grow():
 	scale = scale * 1.5
+
+# currently passing in StartPosition to start in middle of screen
+func start(pos):
+	position = pos
