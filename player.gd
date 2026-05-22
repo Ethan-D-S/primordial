@@ -9,3 +9,7 @@ func get_input():
 func _physics_process(delta):
 	get_input()
 	move_and_slide()
+	grow()
+
+func grow():
+	scale = scale * 1.5
