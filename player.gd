@@ -6,7 +6,7 @@ func _ready():
 	# get center coords of screen
 	var center_position = get_viewport_rect().size / 2
 	
-	# 
+	# set position to center
 	position = center_position
 
 
@@ -21,7 +21,6 @@ func _physics_process(delta):
 
 func grow():
 	scale = scale * 1.5
-
-# currently passing in StartPosition to start in middle of screen
-func start(pos):
-	position = pos
+	
+func eat():
+	grow()
