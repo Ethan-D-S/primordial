@@ -6,7 +6,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_8k7eq"]
 radius = 11.0454
 
-[node name="Algae" type="Area2D" groups=["\"algae\""]]
+[node name="Algae" type="Area2D" groups=["algae"]]
 script = ExtResource("1_gv6lf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

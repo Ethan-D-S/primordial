@@ -26,4 +26,4 @@ shape = SubResource("CircleShape2D_gr7fw")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="border"]
 shape = SubResource("CircleShape2D_icjva")
 
-[connection signal="body_entered" from="border" to="." method="_on_border_body_entered"]
+[connection signal="area_entered" from="border" to="." method="_on_border_area_entered"]
