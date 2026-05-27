@@ -20,7 +20,7 @@ func _physics_process(delta):
 
 
 func grow():
-	scale = scale * 1.5
+	scale += scale * .1
 	
 func eat():
 	grow()

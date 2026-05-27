@@ -1,9 +1,16 @@
 extends Node
 
+#get the algae spawner
+@onready var spawner = $SpawnManager
+
+
+func populate_world(algae_count):
+	for i in algae_count:
+		spawner.spawn_algae(spawner.generate_algae_spawn_location())
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	populate_world(4000)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
