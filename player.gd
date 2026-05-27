@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @export var speed = 400
+@export var scale_factor = 0.05
 
 func _ready():
 	# get center coords of screen
@@ -20,7 +21,12 @@ func _physics_process(delta):
 
 
 func grow():
-	scale += scale * .1
 	
+	scale += scale * scale_factor
+	#proportionate slowdown for growth
+	speed *= 1/(1+scale_factor)
+
 func eat():
+	if not $EatSound.playing:
+		$EatSound.play()
 	grow()
