@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2wrw7msswkpd"]
+
+[ext_resource type="Script" uid="uid://bx5d4baxvpo0q" path="res://wanderer.gd" id="1_icjva"]
+[ext_resource type="Texture2D" uid="uid://bfbimgok4hahf" path="res://assets/sprites/wanderer.png" id="2_3amrx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gr7fw"]
+radius = 396.556
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_icjva"]
+radius = 14.1421
+
+[node name="Wanderer" type="CharacterBody2D"]
+script = ExtResource("1_icjva")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_3amrx")
+
+[node name="sight_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sight_area"]
+shape = SubResource("CircleShape2D_gr7fw")
+
+[node name="border" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="border"]
+shape = SubResource("CircleShape2D_icjva")
+
+[connection signal="body_entered" from="border" to="." method="_on_border_body_entered"]

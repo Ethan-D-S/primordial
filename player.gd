@@ -1,7 +1,12 @@
 extends CharacterBody2D
 
-@export var speed = 400
-@export var scale_factor = 0.05
+@export var base_speed = 200
+@export var base_mass = 1
+
+var speed = base_speed
+var mass = base_mass
+
+var scale_factor = 1
 
 func _ready():
 	# get center coords of screen
@@ -9,6 +14,8 @@ func _ready():
 	
 	# set position to center
 	position = center_position
+	#ensure starting size is correct for mass
+	grow()
 
 
 func get_input():
@@ -19,14 +26,23 @@ func _physics_process(delta):
 	get_input()
 	move_and_slide()
 
-
+# update scale based on mass
 func grow():
+	# calculate increase with current mass 
+	var new_scale = sqrt(mass) * scale_factor
+	# assign to scale property
+	scale = Vector2(new_scale, new_scale)
+	update_speed()
 	
-	scale += scale * scale_factor
-	#proportionate slowdown for growth
-	speed *= 1/(1+scale_factor)
+	
 
-func eat():
+func eat(mass_eaten):
+	
 	if not $EatSound.playing:
 		$EatSound.play()
+	
+	mass += mass_eaten
 	grow()
+	
+func update_speed():
+	speed = max(base_speed * base_mass/mass, 100)

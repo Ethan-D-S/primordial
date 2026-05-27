@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var algae_scene: PackedScene
+@export var wanderer_scene: PackedScene
 
 # world dimensions: change when intended world size changes
 const WORLD_WIDTH = 38400.0
@@ -22,6 +23,16 @@ func spawn_algae(position: Vector2):
 	add_child(new_algae)
 	
 func generate_algae_spawn_location():
+	var x = randf_range(0, WORLD_WIDTH)
+	var y = randf_range(0, WORLD_HEIGHT)
+	return Vector2(x, y)
+	
+func spawn_wanderers(position: Vector2):
+	var new_wanderer = wanderer_scene.instantiate()
+	new_wanderer.global_position = position
+	add_child(new_wanderer)
+	
+func generate_wanderer_spawn_location():
 	var x = randf_range(0, WORLD_WIDTH)
 	var y = randf_range(0, WORLD_HEIGHT)
 	return Vector2(x, y)

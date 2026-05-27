@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2vhrsuuvp2b6"]
+[gd_scene load_steps=7 format=3 uid="uid://b2vhrsuuvp2b6"]
 
 [ext_resource type="Script" uid="uid://c3yuj13ywmp0t" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://b6a1pk6os5cjd" path="res://player.tscn" id="2_h2yge"]
 [ext_resource type="PackedScene" uid="uid://coekha85phtj6" path="res://algae.tscn" id="3_h2yge"]
 [ext_resource type="AudioStream" uid="uid://dt3ittin53311" path="res://assets/sounds/algae_crunch.wav" id="3_lquwl"]
 [ext_resource type="Script" uid="uid://d3gnunp6g7ik1" path="res://spawn_manager.gd" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://d2wrw7msswkpd" path="res://wanderer.tscn" id="4_7mycd"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_0xm2m")
@@ -29,6 +30,7 @@ offset_right = 221.0
 offset_bottom = 138.0
 
 [node name="Player" parent="." instance=ExtResource("2_h2yge")]
+position = Vector2(120, 98)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 
@@ -39,3 +41,4 @@ volume_db = -10.0
 [node name="SpawnManager" type="Node2D" parent="."]
 script = ExtResource("4_1bvp3")
 algae_scene = ExtResource("3_h2yge")
+wanderer_scene = ExtResource("4_7mycd")

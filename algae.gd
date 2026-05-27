@@ -1,5 +1,6 @@
 extends Area2D
 
+@export var mass = 2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -12,6 +13,6 @@ func _process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
-	# trigger body's specific eat method
-	body.eat()
+	# trigger body's specific eat method w/ mass
+	body.eat(mass)
 	queue_free()
