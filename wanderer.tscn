@@ -3,11 +3,11 @@
 [ext_resource type="Script" uid="uid://bx5d4baxvpo0q" path="res://wanderer.gd" id="1_icjva"]
 [ext_resource type="Texture2D" uid="uid://bfbimgok4hahf" path="res://assets/sprites/wanderer.png" id="2_3amrx"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_icjva"]
+radius = 14.0357
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_gr7fw"]
 radius = 396.556
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_icjva"]
-radius = 14.1421
 
 [node name="Wanderer" type="CharacterBody2D"]
 script = ExtResource("1_icjva")
@@ -16,14 +16,20 @@ script = ExtResource("1_icjva")
 texture_filter = 1
 texture = ExtResource("2_3amrx")
 
-[node name="sight_area" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="sight_area"]
-shape = SubResource("CircleShape2D_gr7fw")
-
-[node name="border" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="border"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_icjva")
 
-[connection signal="area_entered" from="border" to="." method="_on_border_area_entered"]
+[node name="sight" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="sight"]
+shape = SubResource("CircleShape2D_gr7fw")
+
+[node name="touch" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="touch"]
+position = Vector2(0, 2)
+shape = SubResource("CircleShape2D_icjva")
+
+[connection signal="area_entered" from="touch" to="." method="_on_touch_area_entered"]
+[connection signal="body_entered" from="touch" to="." method="_on_touch_body_entered"]
