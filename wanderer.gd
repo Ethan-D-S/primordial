@@ -1,7 +1,11 @@
 extends CharacterBody2D
 
-var speed = 100
-var mass = 2
+var base_speed = 70
+var speed = base_speed
+
+var base_mass = 2
+var mass = base_mass
+
 var target: Node2D = null
 
 var run_timer: float = 0.0
@@ -10,25 +14,29 @@ var current_direction = Vector2.UP
 
 
 func _physics_process(delta: float) -> void:
+	# keep timer consistent with framerate
 	run_timer -= delta
-
+	
+	# check that target exists
 	if is_instance_valid(target):
-		# Bias direction toward target, but don't snap perfectly
+		# bias direction toward target, but don't snap perfectly
 		var toward_target = (target.global_position - global_position).normalized()
-		current_direction = current_direction.lerp(toward_target, 0.15).normalized()
-		# Longer runs when chasing — less tumbling near food
+		current_direction = current_direction.lerp(toward_target, 0.4).normalized()
+	
 		if run_timer <= 0:
+			# has valid target, stay focused
 			_start_new_run(true)
 	else:
+		# does not have a valid target, attempt to find one
 		target = find_target()
+		
+		# still no target, wander unfocused
 		if run_timer <= 0:
 			_start_new_run(false)
 
 	velocity = lerp(velocity, current_direction * speed, 5 * delta)
 	move_and_slide()
 
-func _ready() -> void:
-	_start_new_run()
 
 # uses sight node
 func find_target() -> Node2D:
@@ -44,19 +52,20 @@ func find_target() -> Node2D:
 
 func _start_new_run(focused: bool = false) -> void:
 	if focused:
-		# Short pause then recommit — mostly keeps current direction
-		run_duration = randf_range(0.6, 1.2)
+		# short pause then recommit, favors current direction
+		run_duration = randf_range(0.6, 1.8)
 		current_direction = current_direction.rotated(randf_range(-0.3, 0.3))
 	else:
-		# Tumble: longer pause, bigger random reorientation
-		run_duration = randf_range(0.3, 0.8)
+		# tumble: longer pause, bigger random reorientation
+		run_duration = randf_range(0.3, 1.5)
+		# TAU is the circumference of the unit circle in radians
 		current_direction = Vector2.from_angle(randf_range(0, TAU))
 	run_timer = run_duration
 
 
 func eat(mass_eaten):
 	mass += mass_eaten
-#	grow()
+	grow()
 
 # eating static food, like algae
 func _on_touch_area_entered(area: Area2D) -> void:
@@ -69,3 +78,13 @@ func _on_touch_body_entered(body: Node2D) -> void:
 	if body.mass > mass:
 		body.eat(mass)
 		queue_free()
+
+func update_speed():
+	speed = max(base_speed * base_mass/mass, 100)
+
+func grow():
+	# calculate increase with current mass 
+	var new_scale = sqrt(mass)
+	# assign to scale property
+	scale = Vector2(new_scale, new_scale)
+	update_speed()

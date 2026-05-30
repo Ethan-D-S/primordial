@@ -1,7 +1,9 @@
 extends CharacterBody2D
 
-@export var base_speed = 200
+@export var base_speed = 100
 @export var base_mass = 1
+
+signal grew
 
 var speed = base_speed
 var mass = base_mass
@@ -33,6 +35,7 @@ func grow():
 	# assign to scale property
 	scale = Vector2(new_scale, new_scale)
 	update_speed()
+	emit_signal("grew")
 	
 	
 
@@ -45,4 +48,4 @@ func eat(mass_eaten):
 	grow()
 	
 func update_speed():
-	speed = max(base_speed * base_mass/mass, 100)
+	speed = max(base_speed * base_mass/mass, base_speed)
