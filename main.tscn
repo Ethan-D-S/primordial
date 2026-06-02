@@ -11,6 +11,10 @@
 [node name="Main" type="Node"]
 script = ExtResource("1_0xm2m")
 
+[node name="algae_respawn" type="Timer" parent="."]
+wait_time = 20.0
+autostart = true
+
 [node name="ColorRect2" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,4 +48,5 @@ script = ExtResource("4_1bvp3")
 algae_scene = ExtResource("3_h2yge")
 wanderer_scene = ExtResource("4_7mycd")
 
+[connection signal="timeout" from="algae_respawn" to="." method="_on_algae_respawn_timeout"]
 [connection signal="grew" from="Player" to="Player/Camera2D" method="_on_player_grew"]

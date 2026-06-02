@@ -4,8 +4,8 @@ extends Node2D
 @export var wanderer_scene: PackedScene
 
 # world dimensions: change when intended world size changes
-const WORLD_WIDTH = 38400.0
-const WORLD_HEIGHT = 21600.0
+const WORLD_WIDTH = 19200.0
+const WORLD_HEIGHT = 10800.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
