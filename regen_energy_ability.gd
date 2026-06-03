@@ -13,4 +13,5 @@ func _process(delta: float) -> void:
 	pass
 
 func on_tick():
-	player.gain_energy(regen_rate)
+	pass
+	#player.gain_energy(regen_rate)

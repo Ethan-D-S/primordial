@@ -20,6 +20,8 @@ var max_energy: int = 5
 var stored_energy: int = 0
 var max_stored_energy: int = 1
 
+@onready var dash: Node = $Abilities/DashAbility
+
 func _ready():
 	# get center coords of screen
 	var center_position = get_viewport_rect().size / 2
@@ -33,8 +35,23 @@ func _ready():
 func get_input():
 	look_at(get_global_mouse_position())
 	velocity = transform.x * Input.get_axis("down", "move_forward") * speed
+	
+# handles ability input
+func _input(event):
+	if event.is_action_pressed("dash"):
+		# TODO: functionalize to a try_activate() or similar
+		# check if player has energy
+		if energy >= dash.energy_cost:
+			spend_energy(dash.energy_cost)
+			dash.activate()
 
+		
+	
 func _physics_process(delta):
+	#skip normal movement if dashing
+	if is_dashing():
+		return
+		
 	get_input()
 	move_and_slide()
 
@@ -57,9 +74,23 @@ func eat(mass_eaten):
 	grow()
 	
 
-func gain_energy(energy_gained):
-	energy += energy_gained
-	emit_signal("energy_changed", energy)
+# use when increasing energy
+func gain_energy(energy_gained) -> void:
+	# check if energy is full
+	if energy < max_energy:
+		energy += energy_gained
+		# connect to UI
+		emit_signal("energy_changed", energy)
+
+# use when reducing energy
+func spend_energy(energy_spent) -> void:
+		if energy > 0:
+			energy -= energy_spent
+			emit_signal("energy_changed", energy)
 
 func update_speed():
 	speed = max(base_speed * base_mass/mass, base_speed)
+
+# boolean check for abilities dashing active
+func is_dashing() -> bool:  
+	return dash.is_dashing

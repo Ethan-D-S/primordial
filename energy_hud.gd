@@ -18,6 +18,7 @@ func _ready() -> void:
 		add_child(bubble)
 		energy_list.append(bubble)
 	
+	#TODO animate bubble changes
 	player.energy_changed.connect(_on_player_energy_changed)
 	_on_player_energy_changed(player.energy)
 	

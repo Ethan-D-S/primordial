@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://b6a1pk6os5cjd"]
+[gd_scene load_steps=9 format=3 uid="uid://b6a1pk6os5cjd"]
 
 [ext_resource type="Texture2D" uid="uid://elkqrxbfcygl" path="res://assets/sprites/primordial_player.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://cmur2pxsrtip1" path="res://player.gd" id="1_onrkg"]
-[ext_resource type="Script" uid="uid://cb3jxk12woakn" path="res://abilities.gd" id="3_hqtel"]
+[ext_resource type="Script" uid="uid://cb3jxk12woakn" path="res://ability.gd" id="3_hqtel"]
 [ext_resource type="Script" uid="uid://bd65d07y6mnwm" path="res://eat_algae_ability.gd" id="4_sweqy"]
 [ext_resource type="Script" uid="uid://b6fu3nfu0yg5s" path="res://regen_energy_ability.gd" id="5_sweqy"]
+[ext_resource type="Script" uid="uid://bc7tfg7oqpnvf" path="res://dash_ability.gd" id="6_2hs0m"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3pqv"]
 radius = 13.0
@@ -37,3 +38,7 @@ script = ExtResource("4_sweqy")
 
 [node name="RegenEnergyAbility" type="Node" parent="Abilities"]
 script = ExtResource("5_sweqy")
+
+[node name="DashAbility" type="Node" parent="Abilities"]
+script = ExtResource("6_2hs0m")
+energy_cost = 1.0

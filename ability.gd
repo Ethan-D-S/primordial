@@ -8,13 +8,13 @@ extends Node
 @export var on_cooldown: bool = false
 @export var cooldown_timer: float = 0.0
 
-var player = get_parent()
+var player: Node
 
-# Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	# ensure abilities have access to the player
+	player = get_parent().get_parent()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	pass
