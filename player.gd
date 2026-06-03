@@ -13,7 +13,7 @@ var scale_factor = 1
 
 # energy is consumed by abilities, gained by eating etc.
 var energy: int = 2
-var max_energy: int = 3
+var max_energy: int = 5
 
 # stored energy is used to grow/ evolve, stored by holding a button
 # stored energy is not available for abilites

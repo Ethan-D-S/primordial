@@ -21,11 +21,11 @@ func _ready() -> void:
 	player.energy_changed.connect(_on_player_energy_changed)
 	_on_player_energy_changed(player.energy)
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
 
 
+# assign texture to bubbles in energy list based on how much energy player has 
 func _on_player_energy_changed(current_energy: int) -> void:
 	for i in energy_list.size():
 		if i < current_energy:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b2vhrsuuvp2b6"]
+[gd_scene load_steps=11 format=3 uid="uid://b2vhrsuuvp2b6"]
 
 [ext_resource type="Script" uid="uid://c3yuj13ywmp0t" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://b6a1pk6os5cjd" path="res://player.tscn" id="2_h2yge"]
@@ -8,7 +8,8 @@
 [ext_resource type="Script" uid="uid://d3gnunp6g7ik1" path="res://spawn_manager.gd" id="4_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://d2wrw7msswkpd" path="res://wanderer.tscn" id="4_7mycd"]
 [ext_resource type="Script" uid="uid://cepy0vitys7d" path="res://energy_hud.gd" id="8_kek77"]
-[ext_resource type="Texture2D" uid="uid://fk2whyevnkcg" path="res://icon.svg" id="9_4c57u"]
+[ext_resource type="Texture2D" uid="uid://c43sb7m2fevkf" path="res://assets/sprites/energy.png" id="9_4c57u"]
+[ext_resource type="Texture2D" uid="uid://jrqn38u0ve82" path="res://assets/sprites/energy_empty.png" id="10_efxa6"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_0xm2m")
@@ -21,8 +22,6 @@ autostart = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -7500.0
-offset_top = -7500.0
 offset_right = 5580.0
 offset_bottom = 6420.0
 grow_horizontal = 2
@@ -53,19 +52,23 @@ wanderer_scene = ExtResource("4_7mycd")
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="EnergyHUD" type="HBoxContainer" parent="UI"]
+texture_filter = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
+offset_top = -80.0
+offset_right = 12.0
+offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(2, 2)
 tooltip_text = "energy"
 script = ExtResource("8_kek77")
 energy_texture = ExtResource("9_4c57u")
+empty_texture = ExtResource("10_efxa6")
 
 [connection signal="timeout" from="algae_respawn" to="." method="_on_algae_respawn_timeout"]
 [connection signal="energy_changed" from="Player" to="UI/EnergyHUD" method="_on_player_energy_changed"]
