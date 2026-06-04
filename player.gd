@@ -1,15 +1,24 @@
 extends CharacterBody2D
 
+## Starting variables
 @export var base_speed = 100
-@export var base_mass = 1
+@export var base_mass: float = .5
 
+## Updating variables
+var speed = base_speed
+var mass: float = base_mass
+@export var max_mass: float = 5.0
+
+## signals
 signal grew
 signal energy_changed(current_energy: int)
 
-var speed = base_speed
-var mass = base_mass
+# GM quantities: probably should port to a dedicated data structure
+var algaeGM : float = 0.0
+var wandererGM : float = 0.0
 
-var scale_factor = 1
+# 
+var scale_factor: float = 1
 
 # energy is consumed by abilities, gained by eating etc.
 var energy: int = 2
@@ -69,10 +78,17 @@ func eat(mass_eaten):
 	if not $EatSound.playing:
 		$EatSound.play()
 	
-	mass += mass_eaten
+	#mass += mass_eaten
+	gain_mass(mass_eaten)
 	gain_energy(1)
 	grow()
 	
+
+func gain_mass(mass_gained) -> void:
+	# check if maximum mass has been reached
+	if mass < max_mass:
+		mass += mass_gained
+		# emit signal for effects/animations?
 
 # use when increasing energy
 func gain_energy(energy_gained) -> void:

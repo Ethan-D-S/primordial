@@ -1,6 +1,9 @@
 class_name RegenEnergyAbility
 extends Ability
 
+# this should activate when player is in a sunlight area
+# sunlight areas moving around could make this a bit more engaging
+
 @export var regen_rate: float = 0.2
 
 # Called when the node enters the scene tree for the first time.
