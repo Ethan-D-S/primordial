@@ -72,6 +72,7 @@ func _physics_process(delta):
 	get_input()
 	move_and_slide()
 
+
 # update scale based on mass
 func grow():
 	# calculate increase with current mass 
@@ -80,7 +81,8 @@ func grow():
 	scale = Vector2(new_scale, new_scale)
 	update_speed()
 	emit_signal("grew")
-	
+
+
 func eat(mass_eaten, creature_type):
 	
 	if not $EatSound.playing:
@@ -92,13 +94,14 @@ func eat(mass_eaten, creature_type):
 	gain_mass(mass_eaten)
 	gain_energy(data["energy_on_eat"])
 	grow()
-	
+
 
 func gain_mass(mass_gained) -> void:
 	# check if maximum mass has been reached
 	if mass < max_mass:
 		mass += mass_gained
 		# emit signal for effects/animations?
+
 
 # use when increasing energy
 func gain_energy(energy_gained) -> void:
@@ -108,11 +111,13 @@ func gain_energy(energy_gained) -> void:
 		# connect to UI
 		emit_signal("energy_changed", energy)
 
+
 # use when reducing energy
 func spend_energy(energy_spent) -> void:
 		if energy > 0:
 			energy -= energy_spent
 			emit_signal("energy_changed", energy)
+
 
 func update_speed():
 	speed = max(base_speed * base_mass/mass, base_speed)

@@ -41,4 +41,4 @@ script = ExtResource("5_sweqy")
 
 [node name="DashAbility" type="Node" parent="Abilities"]
 script = ExtResource("6_2hs0m")
-energy_cost = 1.0
+energy_cost = 2.0
