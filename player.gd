@@ -30,13 +30,12 @@ var stored_energy: int = 0
 var max_stored_energy: int = 1
 
 @onready var dash: Node = $Abilities/DashAbility
+@onready var regen: Node = $Abilities/RegenEnergyAbility
 @onready var creature_data = get_node("../CreatureData")
 
 func _ready():
 	# get center coords of screen
 	var center_position = get_viewport_rect().size / 2
-	
-	print(get_node("/root/Main/CreatureData"))
 	
 	# set position to center
 	position = center_position
@@ -50,18 +49,24 @@ func get_input():
 	
 # handles ability input
 func _input(event):
+	## Dash
 	if event.is_action_pressed("dash"):
 		# TODO: functionalize to a try_activate() or similar
 		# check if player has energy
 		if energy >= dash.energy_cost:
 			spend_energy(dash.energy_cost)
 			dash.activate()
-
-		
 	
+	## Regen
+	if event.is_action_pressed("regenerate"):
+		
+		if energy < max_energy:
+			regen.activate()
+
+
 func _physics_process(delta):
 	#skip normal movement if dashing
-	if is_dashing():
+	if is_dashing() or is_regenerating():
 		return
 		
 	get_input()
@@ -112,6 +117,8 @@ func spend_energy(energy_spent) -> void:
 func update_speed():
 	speed = max(base_speed * base_mass/mass, base_speed)
 
-# boolean check for abilities dashing active
+# boolean check for abilities active
 func is_dashing() -> bool:  
 	return dash.is_dashing
+func is_regenerating() -> bool:
+	return regen.is_active
