@@ -30,10 +30,13 @@ var stored_energy: int = 0
 var max_stored_energy: int = 1
 
 @onready var dash: Node = $Abilities/DashAbility
+@onready var creature_data = get_node("../CreatureData")
 
 func _ready():
 	# get center coords of screen
 	var center_position = get_viewport_rect().size / 2
+	
+	print(get_node("/root/Main/CreatureData"))
 	
 	# set position to center
 	position = center_position
@@ -73,14 +76,16 @@ func grow():
 	update_speed()
 	emit_signal("grew")
 	
-func eat(mass_eaten):
+func eat(mass_eaten, creature_type):
 	
 	if not $EatSound.playing:
 		$EatSound.play()
+		
+	# look up entry for creature type
+	var data = creature_data.get_creature_data(creature_type)
 	
-	#mass += mass_eaten
 	gain_mass(mass_eaten)
-	gain_energy(1)
+	gain_energy(data["energy_on_eat"])
 	grow()
 	
 

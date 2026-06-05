@@ -12,6 +12,8 @@ var run_timer: float = 0.0
 var run_duration: float = 0.0
 var current_direction = Vector2.UP
 
+var this_creature_type = "wanderer"
+
 
 func _physics_process(delta: float) -> void:
 	# keep timer consistent with framerate
@@ -63,20 +65,20 @@ func _start_new_run(focused: bool = false) -> void:
 	run_timer = run_duration
 
 
-func eat(mass_eaten):
+func eat(mass_eaten, creature_type):
 	mass += mass_eaten
 	grow()
 
 # eating static food, like algae
 func _on_touch_area_entered(area: Area2D) -> void:
 	if area.is_in_group("algae"):
-		eat(area.mass)
+		#eat(area.mass)
 		area.queue_free()
 
 # contacted by body, like player
 func _on_touch_body_entered(body: Node2D) -> void:
 	if body.mass > mass:
-		body.eat(mass)
+		body.eat(mass, this_creature_type)
 		queue_free()
 
 func update_speed():
