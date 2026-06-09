@@ -6,10 +6,10 @@ var this_creature_type: String = "algae"
 var eating_timer: float = 0.0
 var eat_duration: float = 0.5 # time to eat
 var being_eaten_by = null
-@onready var sprite = $Sprite 
+@onready var algae_sprite = $Sprite
 
 func set_flash(on: bool) -> void:
-	sprite.material.set_shader_parameter("active", on)
+	algae_sprite.material.set_shader_parameter("active", on)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -29,13 +29,13 @@ func _physics_process(delta: float) -> void:
 func start_being_eaten_by(predator):
 	being_eaten_by = predator
 	eating_timer = eat_duration
-	set_flash(true)
+	#set_flash(true)
 	
 # reset predator/eating vars, end flash
 func cancel_eat():
 	being_eaten_by = null
 	eating_timer = 0.0
-	set_flash(false)
+	#set_flash(false)
 
 
 func _on_area_entered(area: Area2D) -> void:
@@ -44,7 +44,7 @@ func _on_area_entered(area: Area2D) -> void:
 	if body.has_method("eat") and body.mass > mass:
 		being_eaten_by = body
 		eating_timer = eat_duration
-		set_flash(true)
+		#set_flash(true)
 
 func _on_area_exited(area: Area2D) -> void:
 	var body = area.get_parent()

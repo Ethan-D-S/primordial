@@ -9,6 +9,7 @@ radius = 13.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sc1e2"]
 shader = ExtResource("2_8k7eq")
+shader_parameter/active = false
 
 [node name="Algae" type="Area2D" groups=["algae"]]
 texture_filter = 1
