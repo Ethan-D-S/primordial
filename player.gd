@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 ## Starting variables
 @export var base_speed = 100
-@export var base_mass: float = .5
+@export var base_mass: float = 1
 
 ## Updating variables
 var speed = base_speed

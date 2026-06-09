@@ -1,20 +1,52 @@
 extends Area2D
 
-@export var mass: float = 2.0
+@export var mass: float = 0.5
 
 var this_creature_type: String = "algae"
+var eating_timer: float = 0.0
+var eat_duration: float = 0.5 # time to eat
+var being_eaten_by = null
+@onready var sprite = $Sprite 
+
+func set_flash(on: bool) -> void:
+	sprite.material.set_shader_parameter("active", on)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _physics_process(delta: float) -> void:
+	if being_eaten_by:
+		eating_timer -= delta
+
+		if eating_timer <= 0:
+			being_eaten_by.eat(mass, this_creature_type)
+			queue_free()
+			
+
+# helper to identify eater and start the timer
+func start_being_eaten_by(predator):
+	being_eaten_by = predator
+	eating_timer = eat_duration
+	set_flash(true)
+	
+# reset predator/eating vars, end flash
+func cancel_eat():
+	being_eaten_by = null
+	eating_timer = 0.0
+	set_flash(false)
 
 
-func _on_body_entered(body: Node2D) -> void:
-	# trigger body's specific eat method w/ mass
-	body.eat(mass, this_creature_type)
-	queue_free()
+func _on_area_entered(area: Area2D) -> void:
+	var body = area.get_parent()
+	print("area entered: ", area.name, " parent: ", area.get_parent().name)
+	if body.has_method("eat") and body.mass > mass:
+		being_eaten_by = body
+		eating_timer = eat_duration
+		set_flash(true)
+
+func _on_area_exited(area: Area2D) -> void:
+	var body = area.get_parent()
+	if body == being_eaten_by:
+		cancel_eat()

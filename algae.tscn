@@ -1,18 +1,27 @@
-[gd_scene load_steps=4 format=3 uid="uid://coekha85phtj6"]
+[gd_scene load_steps=6 format=3 uid="uid://coekha85phtj6"]
 
 [ext_resource type="Script" uid="uid://dc41yktv0inm5" path="res://algae.gd" id="1_gv6lf"]
+[ext_resource type="Shader" uid="uid://cqa1wigeg4ki0" path="res://algae.gdshader" id="2_8k7eq"]
 [ext_resource type="Texture2D" uid="uid://d1xalej2tte1o" path="res://assets/sprites/algae.png" id="2_palpr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8k7eq"]
-radius = 11.0454
+radius = 13.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sc1e2"]
+shader = ExtResource("2_8k7eq")
 
 [node name="Algae" type="Area2D" groups=["algae"]]
+texture_filter = 1
 script = ExtResource("1_gv6lf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8k7eq")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_sc1e2")
 texture = ExtResource("2_palpr")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

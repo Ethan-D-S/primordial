@@ -19,10 +19,18 @@ func _ready() -> void:
 	# ensure parent class is ready
 	super()
 
+#TODO: functionalize the animation cycle so that a full cycle will play
+# adjusted to the duration of the ability
+
 func _physics_process(delta: float) -> void:
 	#reduce regen timer
 	if is_active:
 		animation.visible = true
+		animation.play("recharge")
+		
+		if not $RegenSound.playing:
+			$RegenSound.play()
+		
 		animation.global_position = player.global_position + Vector2(0, 40)
 		regen_timer -= delta
 		player.velocity = Vector2.ZERO
@@ -31,6 +39,7 @@ func _physics_process(delta: float) -> void:
 		if regen_timer <= 0:
 			is_active = false
 			animation.stop()
+			$RegenSound.stop()
 			animation.visible = false
 			player.gain_energy(energy_regen)
 			return
@@ -40,7 +49,5 @@ func activate():
 	if is_active:
 		return
 	is_active = true
-	print("activate called")
-	animation.play("recharge")
-	print("animation playing: ", animation.is_playing())
+	
 	regen_timer = regen_duration

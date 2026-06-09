@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://b6a1pk6os5cjd"]
+[gd_scene load_steps=24 format=3 uid="uid://b6a1pk6os5cjd"]
 
 [ext_resource type="Texture2D" uid="uid://elkqrxbfcygl" path="res://assets/sprites/primordial_player.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://cmur2pxsrtip1" path="res://player.gd" id="1_onrkg"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b6fu3nfu0yg5s" path="res://regen_energy_ability.gd" id="5_sweqy"]
 [ext_resource type="Texture2D" uid="uid://bf11b3bmvml2q" path="res://assets/sprites/RegenFillSheet.png" id="6_1jxqw"]
 [ext_resource type="Script" uid="uid://bc7tfg7oqpnvf" path="res://dash_ability.gd" id="6_2hs0m"]
+[ext_resource type="AudioStream" uid="uid://cis760nc5axxb" path="res://assets/sounds/recharge.wav" id="7_dw050"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3pqv"]
 radius = 13.0
@@ -131,12 +132,16 @@ script = ExtResource("4_sweqy")
 
 [node name="RegenEnergyAbility" type="Node" parent="Abilities"]
 script = ExtResource("5_sweqy")
+energy_regen = 2
 
 [node name="RegenCircleAnimation" type="AnimatedSprite2D" parent="Abilities/RegenEnergyAbility"]
 texture_filter = 1
 position = Vector2(0, 27)
 sprite_frames = SubResource("SpriteFrames_pbfsw")
 animation = &"recharge"
+
+[node name="RegenSound" type="AudioStreamPlayer" parent="Abilities/RegenEnergyAbility"]
+stream = ExtResource("7_dw050")
 
 [node name="DashAbility" type="Node" parent="Abilities"]
 script = ExtResource("6_2hs0m")

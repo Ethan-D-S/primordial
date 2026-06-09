@@ -68,18 +68,24 @@ func _start_new_run(focused: bool = false) -> void:
 func eat(mass_eaten, creature_type):
 	mass += mass_eaten
 	grow()
+	print("wanderer ate")
 
 # eating static food, like algae
 func _on_touch_area_entered(area: Area2D) -> void:
 	if area.is_in_group("algae"):
-		#eat(area.mass)
-		area.queue_free()
+		area.start_being_eaten_by(self)
+
+func _on_touch_area_exited(area: Area2D) -> void:
+	if area.is_in_group("algae"):
+		area.cancel_eat()
 
 # contacted by body, like player
 func _on_touch_body_entered(body: Node2D) -> void:
 	if body.mass > mass:
 		body.eat(mass, this_creature_type)
 		queue_free()
+
+
 
 func update_speed():
 	speed = max(base_speed * base_mass/mass, 100)
