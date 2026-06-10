@@ -29,6 +29,12 @@ var max_energy: int = 5
 var stored_energy: int = 0
 var max_stored_energy: int = 1
 
+#eating vars
+var eating_timer: float = 0.0
+var eat_duration: float = 1.0 # time to eat
+var being_eaten_by = null
+@onready var player_sprite = $Sprite
+
 @onready var dash: Node = $Abilities/DashAbility
 @onready var regen: Node = $Abilities/RegenEnergyAbility
 @onready var creature_data = get_node("../CreatureData")
@@ -65,7 +71,7 @@ func _input(event):
 
 
 func _physics_process(delta):
-	#skip normal movement if dashing
+	#skip normal movement when abilities take precedence
 	if is_dashing() or is_regenerating():
 		return
 		
@@ -81,8 +87,22 @@ func grow():
 	scale = Vector2(new_scale, new_scale)
 	update_speed()
 	emit_signal("grew")
+# TODO: functionalize with can_eat, better grouping, creature data
+func _on_touch_area_entered(area: Area2D) -> void:
+	var entity = area.get_parent()
+	# eating algae
+	if area.is_in_group("algae"):
+		area.start_being_eaten_by(self)
+	# eating wanderer
+	if entity.is_in_group("wanderer") && entity.mass < mass:
+		entity.start_being_eaten_by(self)
 
 
+func _on_touch_area_exited(area: Area2D) -> void:
+		if area.is_in_group("algae"):
+			area.cancel_eat()
+			
+			
 func eat(mass_eaten, creature_type):
 	
 	if not $EatSound.playing:
@@ -95,14 +115,13 @@ func eat(mass_eaten, creature_type):
 	gain_energy(data["energy_on_eat"])
 	grow()
 
+## STAT MUTATORS
 
 func gain_mass(mass_gained) -> void:
 	# check if maximum mass has been reached
 	if mass < max_mass:
 		mass += mass_gained
 		# emit signal for effects/animations?
-
-
 # use when increasing energy
 func gain_energy(energy_gained) -> void:
 	# check if energy is full
@@ -110,18 +129,13 @@ func gain_energy(energy_gained) -> void:
 		energy += energy_gained
 		# connect to UI
 		emit_signal("energy_changed", energy)
-
-
 # use when reducing energy
 func spend_energy(energy_spent) -> void:
 		if energy > 0:
 			energy -= energy_spent
 			emit_signal("energy_changed", energy)
-
-
 func update_speed():
 	speed = max(base_speed * base_mass/mass, base_speed)
-
 # boolean check for abilities active
 func is_dashing() -> bool:  
 	return dash.is_dashing

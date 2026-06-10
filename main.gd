@@ -12,7 +12,7 @@ func populate_world(algae_count, wanderer_count):
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	populate_world(1000, 0)
+	populate_world(1000, 500)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

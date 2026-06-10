@@ -14,17 +14,29 @@ var current_direction = Vector2.UP
 
 var this_creature_type = "wanderer"
 
+#eating vars
+var eating_timer: float = 0.0
+var eat_duration: float = 0.5 # time to eat
+var being_eaten_by = null
+@onready var wanderer_sprite = $Sprite
 
 func _physics_process(delta: float) -> void:
 	# keep timer consistent with framerate
 	run_timer -= delta
+	# being eaten
+	if being_eaten_by:
+		eating_timer -= delta
+
+		if eating_timer <= 0:
+			being_eaten_by.eat(mass, this_creature_type)
+			queue_free()
 	
 	# check that target exists
 	if is_instance_valid(target):
 		# bias direction toward target, but don't snap perfectly
 		var toward_target = (target.global_position - global_position).normalized()
 		current_direction = current_direction.lerp(toward_target, 0.4).normalized()
-	
+	## TODO: functionalize this
 		if run_timer <= 0:
 			# has valid target, stay focused
 			_start_new_run(true)
@@ -70,21 +82,34 @@ func eat(mass_eaten, creature_type):
 	grow()
 	print("wanderer ate")
 
-# eating static food, like algae
+# eating
+# TODO: functionalize with can_eat, better grouping, creature data
 func _on_touch_area_entered(area: Area2D) -> void:
 	if area.is_in_group("algae"):
 		area.start_being_eaten_by(self)
+	
+	# eating player
+	#else: if area.is_in_group("player") && area.get_parent().mass < mass:
+		#area.get_parent().start_being_eaten_by(self)
 
 func _on_touch_area_exited(area: Area2D) -> void:
 	if area.is_in_group("algae"):
 		area.cancel_eat()
+	
+	#else: if area.is_in_group("player"):
+		#area.get_parent().cancel_eat()
 
-# contacted by body, like player
-func _on_touch_body_entered(body: Node2D) -> void:
-	if body.mass > mass:
-		body.eat(mass, this_creature_type)
-		queue_free()
 
+func start_being_eaten_by(predator):
+	being_eaten_by = predator
+	eating_timer = eat_duration
+	#set_flash(true)
+	
+# reset predator/eating vars, end flash
+func cancel_eat():
+	being_eaten_by = null
+	eating_timer = 0.0
+	#set_flash(false)
 
 
 func update_speed():
@@ -96,3 +121,6 @@ func grow():
 	# assign to scale property
 	scale = Vector2(new_scale, new_scale)
 	update_speed()
+
+func set_flash(on: bool) -> void:
+	wanderer_sprite.material.set_shader_parameter("active", on)

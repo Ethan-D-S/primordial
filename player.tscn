@@ -111,7 +111,7 @@ animations = [{
 texture_filter = 1
 script = ExtResource("1_onrkg")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 rotation = 1.5708
 texture = ExtResource("1_4flbx")
 
@@ -146,3 +146,6 @@ stream = ExtResource("7_dw050")
 [node name="DashAbility" type="Node" parent="Abilities"]
 script = ExtResource("6_2hs0m")
 energy_cost = 2.0
+
+[connection signal="area_entered" from="touch" to="." method="_on_touch_area_entered"]
+[connection signal="area_exited" from="touch" to="." method="_on_touch_area_exited"]

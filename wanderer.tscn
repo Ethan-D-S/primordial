@@ -1,10 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2wrw7msswkpd"]
+[gd_scene load_steps=8 format=3 uid="uid://d2wrw7msswkpd"]
 
 [ext_resource type="Script" uid="uid://bx5d4baxvpo0q" path="res://wanderer.gd" id="1_icjva"]
 [ext_resource type="Texture2D" uid="uid://bfbimgok4hahf" path="res://assets/sprites/wanderer.png" id="2_3amrx"]
+[ext_resource type="Shader" uid="uid://c4p3ti7qcvdqi" path="res://flash.gdshader" id="2_cul7r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3amrx"]
 radius = 14.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gr7fw"]
+shader = ExtResource("2_cul7r")
+shader_parameter/active = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gr7fw"]
 radius = 396.556
@@ -12,18 +17,20 @@ radius = 396.556
 [sub_resource type="CircleShape2D" id="CircleShape2D_icjva"]
 radius = 16.0
 
-[node name="Wanderer" type="CharacterBody2D"]
+[node name="Wanderer" type="CharacterBody2D" groups=["wanderer"]]
 script = ExtResource("1_icjva")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2)
 shape = SubResource("CircleShape2D_3amrx")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
+material = SubResource("ShaderMaterial_gr7fw")
 texture = ExtResource("2_3amrx")
 
 [node name="sight" type="Area2D" parent="."]
+collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="sight"]
 shape = SubResource("CircleShape2D_gr7fw")

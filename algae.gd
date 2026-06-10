@@ -3,6 +3,7 @@ extends Area2D
 @export var mass: float = 0.5
 
 var this_creature_type: String = "algae"
+#eating vars
 var eating_timer: float = 0.0
 var eat_duration: float = 0.5 # time to eat
 var being_eaten_by = null
@@ -25,7 +26,8 @@ func _physics_process(delta: float) -> void:
 			queue_free()
 			
 
-# helper to identify eater and start the timer
+# helper to identify eater and start the timer.
+# takes over responsibility for algae being eaten from the predator.
 func start_being_eaten_by(predator):
 	being_eaten_by = predator
 	eating_timer = eat_duration
@@ -36,17 +38,3 @@ func cancel_eat():
 	being_eaten_by = null
 	eating_timer = 0.0
 	#set_flash(false)
-
-
-func _on_area_entered(area: Area2D) -> void:
-	var body = area.get_parent()
-	print("area entered: ", area.name, " parent: ", area.get_parent().name)
-	if body.has_method("eat") and body.mass > mass:
-		being_eaten_by = body
-		eating_timer = eat_duration
-		#set_flash(true)
-
-func _on_area_exited(area: Area2D) -> void:
-	var body = area.get_parent()
-	if body == being_eaten_by:
-		cancel_eat()
