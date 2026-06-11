@@ -94,7 +94,7 @@ func _on_touch_area_entered(area: Area2D) -> void:
 	if area.is_in_group("algae"):
 		area.start_being_eaten_by(self)
 	# eating wanderer
-	if entity.is_in_group("wanderer") && entity.mass < mass:
+	if entity.is_in_group("wanderer"): #&& entity.mass < mass:
 		entity.start_being_eaten_by(self)
 
 

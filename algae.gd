@@ -14,11 +14,12 @@ func set_flash(on: bool) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	algae_sprite.material = algae_sprite.material.duplicate()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	if being_eaten_by:
+		#modulate flash
 		eating_timer -= delta
 
 		if eating_timer <= 0:
@@ -31,10 +32,10 @@ func _physics_process(delta: float) -> void:
 func start_being_eaten_by(predator):
 	being_eaten_by = predator
 	eating_timer = eat_duration
-	#set_flash(true)
+	set_flash(true)
 	
 # reset predator/eating vars, end flash
 func cancel_eat():
 	being_eaten_by = null
 	eating_timer = 0.0
-	#set_flash(false)
+	set_flash(false)

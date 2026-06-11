@@ -20,11 +20,17 @@ var eat_duration: float = 0.5 # time to eat
 var being_eaten_by = null
 @onready var wanderer_sprite = $Sprite
 
+func _ready() -> void:
+	# make sprite material (for flash) unique to each instance of the entity
+	wanderer_sprite.material = wanderer_sprite.material.duplicate()
+
 func _physics_process(delta: float) -> void:
 	# keep timer consistent with framerate
 	run_timer -= delta
+	
 	# being eaten
 	if being_eaten_by:
+		#set_flash(true)
 		eating_timer -= delta
 
 		if eating_timer <= 0:
@@ -36,6 +42,7 @@ func _physics_process(delta: float) -> void:
 		# bias direction toward target, but don't snap perfectly
 		var toward_target = (target.global_position - global_position).normalized()
 		current_direction = current_direction.lerp(toward_target, 0.4).normalized()
+		
 	## TODO: functionalize this
 		if run_timer <= 0:
 			# has valid target, stay focused
@@ -103,13 +110,13 @@ func _on_touch_area_exited(area: Area2D) -> void:
 func start_being_eaten_by(predator):
 	being_eaten_by = predator
 	eating_timer = eat_duration
-	#set_flash(true)
+	set_flash(true)
 	
 # reset predator/eating vars, end flash
 func cancel_eat():
 	being_eaten_by = null
 	eating_timer = 0.0
-	#set_flash(false)
+	set_flash(false)
 
 
 func update_speed():
