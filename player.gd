@@ -41,7 +41,7 @@ var being_eaten_by = null
 @onready var dash: Node = $Abilities/DashAbility
 @onready var regen: Node = $Abilities/RegenEnergyAbility
 @onready var creature_data = get_node("../CreatureData")
-@onready var animation = $Animations
+
 
 # expandable player states
 enum PlayerState {IDLE, MOVING}
@@ -62,7 +62,7 @@ func _ready():
 	position = center_position
 	#ensure starting size is correct for mass
 	grow()
-	#animation.play_idle()
+
 
 
 func get_input():
@@ -94,6 +94,7 @@ func _physics_process(delta):
 	
 	#update player state
 	if velocity != Vector2.ZERO:
+		#emits to Animations
 		current_state = PlayerState.MOVING
 	else:
 		current_state = PlayerState.IDLE
@@ -135,9 +136,9 @@ func eat(mass_eaten, creature_type):
 	# look up entry for creature type
 	var data = creature_data.get_creature_data(creature_type)
 	
-	gain_mass(mass_eaten)
+	gain_mass(mass_eaten )
 	gain_energy(data["energy_on_eat"])
-	grow()
+	#grow()
 
 ## STAT MUTATORS
 

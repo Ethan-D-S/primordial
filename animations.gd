@@ -3,7 +3,7 @@ extends Node
 ## Handles non-ability animations
 
 @onready var idle: AnimatedSprite2D = $idle
-#@onready var moving: AnimatedSprite2D = $moving
+@onready var moving: AnimatedSprite2D = $moving
 #@onready var dashing: AnimatedSprite2D = $dashing
 
 @onready var player = get_parent()
@@ -13,18 +13,24 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	print("player sprite scale: ", player.player_sprite.scale)
 	idle.global_position = player.global_position
+	moving.global_position = player.global_position
+	moving.rotation = player.rotation + player.player_sprite.rotation
+	
 	# idle.scale = player.player_sprite.scale * 2
 
 
 func play_idle():
+	moving.stop()
+	moving.visible = false
 	idle.play("idle")
 
 func play_moving():
 	# stop idle animation
 	idle.stop()
 	# play moving animation.
+	moving.visible = true
+	moving.play("moving")
 	
 # dash
 
