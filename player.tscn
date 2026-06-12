@@ -223,5 +223,6 @@ script = ExtResource("8_b26j0")
 sprite_frames = SubResource("SpriteFrames_iruf7")
 animation = &"idle"
 
+[connection signal="state_changed" from="." to="Animations" method="_on_player_state_changed"]
 [connection signal="area_entered" from="touch" to="." method="_on_touch_area_entered"]
 [connection signal="area_exited" from="touch" to="." method="_on_touch_area_exited"]

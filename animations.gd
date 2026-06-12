@@ -10,16 +10,26 @@ extends Node
 
 func _ready() -> void:
 	play_idle()
-	
+
+
 func _physics_process(delta: float) -> void:
 	print("player sprite scale: ", player.player_sprite.scale)
 	idle.global_position = player.global_position
-	idle.scale = player.player_sprite.scale
+	# idle.scale = player.player_sprite.scale * 2
+
 
 func play_idle():
 	idle.play("idle")
 
-#func play_moving():
-	#movement.play("move")
+func play_moving():
+	# stop idle animation
+	idle.stop()
+	# play moving animation.
 	
 # dash
+
+
+func _on_player_state_changed(new_state: int) -> void:
+	match new_state:
+		player.PlayerState.IDLE: play_idle()
+		player.PlayerState.MOVING: play_moving()

@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 			$RegenSound.play()
 		
 		animation.global_position = player.global_position + Vector2(0, 40)
-		animation.scale = player.player_sprite.scale
+		animation.scale = player.player_sprite.scale * 2
 		
 		regen_timer -= delta
 		player.velocity = Vector2.ZERO

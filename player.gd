@@ -8,10 +8,12 @@ extends CharacterBody2D
 var speed = base_speed
 var mass: float = base_mass
 @export var max_mass: float = 5.0
+#var is_moving: bool = false
 
 ## signals
 signal grew
 signal energy_changed(current_energy: int)
+signal state_changed(new_state: PlayerState)
 
 # GM quantities: probably should port to a dedicated data structure
 var algaeGM : float = 0.0
@@ -33,12 +35,24 @@ var max_stored_energy: int = 1
 var eating_timer: float = 0.0
 var eat_duration: float = 1.0 # time to eat
 var being_eaten_by = null
+
 @onready var player_sprite = $Sprite
 
 @onready var dash: Node = $Abilities/DashAbility
 @onready var regen: Node = $Abilities/RegenEnergyAbility
 @onready var creature_data = get_node("../CreatureData")
 @onready var animation = $Animations
+
+# expandable player states
+enum PlayerState {IDLE, MOVING}
+
+# setter for movement states
+var current_state: PlayerState = PlayerState.IDLE:
+	set(value):
+		if value != current_state:
+			current_state = value
+			# emit signal when states change
+			emit_signal("state_changed", value)
 
 func _ready():
 	# get center coords of screen
@@ -77,6 +91,13 @@ func _physics_process(delta):
 		return
 		
 	get_input()
+	
+	#update player state
+	if velocity != Vector2.ZERO:
+		current_state = PlayerState.MOVING
+	else:
+		current_state = PlayerState.IDLE
+	
 	move_and_slide()
 
 
@@ -139,8 +160,13 @@ func spend_energy(energy_spent) -> void:
 			emit_signal("energy_changed", energy)
 func update_speed():
 	speed = max(base_speed * base_mass/mass, base_speed)
-# boolean check for abilities active
+
+# boolean check for abilities and movement active
 func is_dashing() -> bool:  
 	return dash.is_dashing
 func is_regenerating() -> bool:
 	return regen.is_active
+func is_moving() -> bool:
+	if velocity:
+		return true
+	return false
