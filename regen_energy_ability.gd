@@ -22,6 +22,7 @@ func _ready() -> void:
 #TODO: functionalize the animation cycle so that a full cycle will play
 # adjusted to the duration of the ability
 
+
 func _physics_process(delta: float) -> void:
 	#reduce regen timer
 	if is_active:
@@ -32,9 +33,11 @@ func _physics_process(delta: float) -> void:
 			$RegenSound.play()
 		
 		animation.global_position = player.global_position + Vector2(0, 40)
+		animation.scale = player.player_sprite.scale
+		
 		regen_timer -= delta
 		player.velocity = Vector2.ZERO
-	
+
 		# cancel regen
 		if regen_timer <= 0:
 			is_active = false

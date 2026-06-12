@@ -1,13 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://b6a1pk6os5cjd"]
+[gd_scene load_steps=35 format=3 uid="uid://b6a1pk6os5cjd"]
 
 [ext_resource type="Texture2D" uid="uid://elkqrxbfcygl" path="res://assets/sprites/primordial_player.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://cmur2pxsrtip1" path="res://player.gd" id="1_onrkg"]
 [ext_resource type="Script" uid="uid://cb3jxk12woakn" path="res://ability.gd" id="3_hqtel"]
-[ext_resource type="Script" uid="uid://bd65d07y6mnwm" path="res://eat_algae_ability.gd" id="4_sweqy"]
 [ext_resource type="Script" uid="uid://b6fu3nfu0yg5s" path="res://regen_energy_ability.gd" id="5_sweqy"]
 [ext_resource type="Texture2D" uid="uid://bf11b3bmvml2q" path="res://assets/sprites/RegenFillSheet.png" id="6_1jxqw"]
 [ext_resource type="Script" uid="uid://bc7tfg7oqpnvf" path="res://dash_ability.gd" id="6_2hs0m"]
 [ext_resource type="AudioStream" uid="uid://cis760nc5axxb" path="res://assets/sounds/recharge.wav" id="7_dw050"]
+[ext_resource type="Script" uid="uid://dlul8bbw6q2hl" path="res://animations.gd" id="8_b26j0"]
+[ext_resource type="Texture2D" uid="uid://cjuurrtmoietg" path="res://assets/sprites/player_wake..png" id="9_n7ghd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3pqv"]
 radius = 13.0
@@ -107,6 +108,77 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbfsw"]
+atlas = ExtResource("9_n7ghd")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5tmop"]
+atlas = ExtResource("9_n7ghd")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ahtn"]
+atlas = ExtResource("9_n7ghd")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7lmhl"]
+atlas = ExtResource("9_n7ghd")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dx0e4"]
+atlas = ExtResource("9_n7ghd")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jm5j8"]
+atlas = ExtResource("9_n7ghd")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hik5"]
+atlas = ExtResource("9_n7ghd")
+region = Rect2(384, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtqh7"]
+atlas = ExtResource("9_n7ghd")
+region = Rect2(448, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2wuci"]
+atlas = ExtResource("9_n7ghd")
+region = Rect2(512, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iruf7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbfsw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5tmop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ahtn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7lmhl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dx0e4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jm5j8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hik5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtqh7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2wuci")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
+
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 texture_filter = 1
 script = ExtResource("1_onrkg")
@@ -127,9 +199,6 @@ shape = SubResource("CircleShape2D_onrkg")
 [node name="Abilities" type="Node" parent="."]
 script = ExtResource("3_hqtel")
 
-[node name="EatAlgaeAbility" type="Node" parent="Abilities"]
-script = ExtResource("4_sweqy")
-
 [node name="RegenEnergyAbility" type="Node" parent="Abilities"]
 script = ExtResource("5_sweqy")
 energy_regen = 2
@@ -146,6 +215,13 @@ stream = ExtResource("7_dw050")
 [node name="DashAbility" type="Node" parent="Abilities"]
 script = ExtResource("6_2hs0m")
 energy_cost = 2.0
+
+[node name="Animations" type="Node" parent="."]
+script = ExtResource("8_b26j0")
+
+[node name="idle" type="AnimatedSprite2D" parent="Animations"]
+sprite_frames = SubResource("SpriteFrames_iruf7")
+animation = &"idle"
 
 [connection signal="area_entered" from="touch" to="." method="_on_touch_area_entered"]
 [connection signal="area_exited" from="touch" to="." method="_on_touch_area_exited"]

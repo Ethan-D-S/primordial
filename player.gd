@@ -38,6 +38,7 @@ var being_eaten_by = null
 @onready var dash: Node = $Abilities/DashAbility
 @onready var regen: Node = $Abilities/RegenEnergyAbility
 @onready var creature_data = get_node("../CreatureData")
+@onready var animation = $Animations
 
 func _ready():
 	# get center coords of screen
@@ -47,6 +48,7 @@ func _ready():
 	position = center_position
 	#ensure starting size is correct for mass
 	grow()
+	#animation.play_idle()
 
 
 func get_input():
@@ -69,7 +71,6 @@ func _input(event):
 		if energy < max_energy:
 			regen.activate()
 
-
 func _physics_process(delta):
 	#skip normal movement when abilities take precedence
 	if is_dashing() or is_regenerating():
@@ -87,6 +88,8 @@ func grow():
 	scale = Vector2(new_scale, new_scale)
 	update_speed()
 	emit_signal("grew")
+
+
 # TODO: functionalize with can_eat, better grouping, creature data
 func _on_touch_area_entered(area: Area2D) -> void:
 	var entity = area.get_parent()
@@ -101,8 +104,8 @@ func _on_touch_area_entered(area: Area2D) -> void:
 func _on_touch_area_exited(area: Area2D) -> void:
 		if area.is_in_group("algae"):
 			area.cancel_eat()
-			
-			
+
+
 func eat(mass_eaten, creature_type):
 	
 	if not $EatSound.playing:
