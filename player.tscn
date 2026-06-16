@@ -1,7 +1,8 @@
-[gd_scene load_steps=40 format=3 uid="uid://b6a1pk6os5cjd"]
+[gd_scene load_steps=42 format=3 uid="uid://b6a1pk6os5cjd"]
 
 [ext_resource type="Texture2D" uid="uid://elkqrxbfcygl" path="res://assets/sprites/primordial_player.png" id="1_4flbx"]
 [ext_resource type="Script" uid="uid://cmur2pxsrtip1" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="Shader" uid="uid://c4p3ti7qcvdqi" path="res://flash.gdshader" id="2_nvl01"]
 [ext_resource type="Script" uid="uid://cb3jxk12woakn" path="res://ability.gd" id="3_hqtel"]
 [ext_resource type="Script" uid="uid://b6fu3nfu0yg5s" path="res://regen_energy_ability.gd" id="5_sweqy"]
 [ext_resource type="Texture2D" uid="uid://bf11b3bmvml2q" path="res://assets/sprites/RegenFillSheet.png" id="6_1jxqw"]
@@ -10,6 +11,10 @@
 [ext_resource type="Script" uid="uid://dlul8bbw6q2hl" path="res://animations.gd" id="8_b26j0"]
 [ext_resource type="Texture2D" uid="uid://cjuurrtmoietg" path="res://assets/sprites/idle.png" id="9_n7ghd"]
 [ext_resource type="Texture2D" uid="uid://c8for04sm713n" path="res://assets/sprites/moving.png" id="10_n7ghd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ivps1"]
+shader = ExtResource("2_nvl01")
+shader_parameter/active = false
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i3pqv"]
 radius = 13.0
@@ -214,13 +219,14 @@ texture_filter = 1
 script = ExtResource("1_onrkg")
 
 [node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_ivps1")
 rotation = 1.5708
 texture = ExtResource("1_4flbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_i3pqv")
 
-[node name="touch" type="Area2D" parent="."]
+[node name="touch" type="Area2D" parent="." groups=["player"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="touch"]
 texture_filter = 1

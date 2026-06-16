@@ -42,8 +42,9 @@ var being_eaten_by = null
 @onready var regen: Node = $Abilities/RegenEnergyAbility
 @onready var creature_data = get_node("../CreatureData")
 
+var this_creature_type = "player"
 
-# expandable player states
+## Player States
 enum PlayerState {IDLE, MOVING}
 
 # setter for movement states
@@ -62,7 +63,6 @@ func _ready():
 	position = center_position
 	#ensure starting size is correct for mass
 	grow()
-
 
 
 func get_input():
@@ -92,6 +92,15 @@ func _physics_process(delta):
 		
 	get_input()
 	
+	# being eaten
+	if being_eaten_by:
+		#set_flash(true)
+		eating_timer -= delta
+
+		if eating_timer <= 0:
+			being_eaten_by.eat(mass, this_creature_type)
+			queue_free()
+	
 	#update player state
 	if velocity != Vector2.ZERO:
 		#emits to Animations
@@ -119,7 +128,7 @@ func _on_touch_area_entered(area: Area2D) -> void:
 	if area.is_in_group("algae"):
 		area.start_being_eaten_by(self)
 	# eating wanderer
-	if entity.is_in_group("wanderer"): #&& entity.mass < mass:
+	if entity.is_in_group("wanderer") && entity.mass < mass:
 		entity.start_being_eaten_by(self)
 
 
@@ -130,6 +139,7 @@ func _on_touch_area_exited(area: Area2D) -> void:
 
 func eat(mass_eaten, creature_type):
 	
+	
 	if not $EatSound.playing:
 		$EatSound.play()
 		
@@ -139,6 +149,21 @@ func eat(mass_eaten, creature_type):
 	gain_mass(mass_eaten )
 	gain_energy(data["energy_on_eat"])
 	#grow()
+
+func start_being_eaten_by(predator):
+	being_eaten_by = predator
+	eating_timer = eat_duration
+	set_flash(true)
+
+# reset predator/eating vars, end flash
+func cancel_eat():
+	being_eaten_by = null
+	eating_timer = 0.0
+	set_flash(false)
+
+func set_flash(on: bool) -> void:
+	player_sprite.material.set_shader_parameter("active", on)
+
 
 ## STAT MUTATORS
 

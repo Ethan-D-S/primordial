@@ -12,7 +12,7 @@ func _ready() -> void:
 	play_idle()
 
 
-func _physics_process(delta: float) -> void:
+func _physics_process(delta: float) -> void: 
 	idle.global_position = player.global_position
 	moving.global_position = player.global_position
 	moving.rotation = player.rotation + player.player_sprite.rotation
@@ -32,7 +32,7 @@ func play_moving():
 	moving.visible = true
 	moving.play("moving")
 	
-# dash
+# dash?
 
 
 func _on_player_state_changed(new_state: int) -> void:

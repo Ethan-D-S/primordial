@@ -87,7 +87,6 @@ func _start_new_run(focused: bool = false) -> void:
 func eat(mass_eaten, creature_type):
 	mass += mass_eaten
 	grow()
-	print("wanderer ate")
 
 # eating
 # TODO: functionalize with can_eat, better grouping, creature data
@@ -96,15 +95,16 @@ func _on_touch_area_entered(area: Area2D) -> void:
 		area.start_being_eaten_by(self)
 	
 	# eating player
-	#else: if area.is_in_group("player") && area.get_parent().mass < mass:
-		#area.get_parent().start_being_eaten_by(self)
+	elif area.is_in_group("player") && area.get_parent().mass < mass:
+		area.get_parent().start_being_eaten_by(self)
+
 
 func _on_touch_area_exited(area: Area2D) -> void:
 	if area.is_in_group("algae"):
 		area.cancel_eat()
 	
-	#else: if area.is_in_group("player"):
-		#area.get_parent().cancel_eat()
+	elif area.is_in_group("player"):
+		area.get_parent().cancel_eat()
 
 
 func start_being_eaten_by(predator):
