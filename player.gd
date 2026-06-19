@@ -56,7 +56,8 @@ var current_state: PlayerState = PlayerState.IDLE:
 			emit_signal("state_changed", value)
 
 func _ready():
-	#GameManager.restore_player_state(self)
+	GameManager.restore_player_state(self)
+	# in future: spawn at marker
 	# get center coords of screen
 	var center_position = get_viewport_rect().size / 2
 	
@@ -100,7 +101,8 @@ func _physics_process(delta):
 
 		if eating_timer <= 0:
 			being_eaten_by.eat(mass, this_creature_type)
-			queue_free()
+			#queue_free()
+			die()
 	
 	#update player state
 	if velocity != Vector2.ZERO:
@@ -122,9 +124,7 @@ func grow():
 	emit_signal("grew")
 
 func die() -> void:
-	pass
-	#GameManager.save_player_state(self)
-	#GameManager game over screen or instant respawn
+	GameManager.player_dies(self, false)
 
 # TODO: functionalize with can_eat, better grouping, creature data
 func _on_touch_area_entered(area: Area2D) -> void:
