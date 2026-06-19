@@ -28,6 +28,8 @@ func _physics_process(delta: float) -> void:
 	# keep timer consistent with framerate
 	run_timer -= delta
 	
+
+	
 	# being eaten
 	if being_eaten_by:
 		#set_flash(true)

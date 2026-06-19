@@ -40,7 +40,7 @@ var being_eaten_by = null
 
 @onready var dash: Node = $Abilities/DashAbility
 @onready var regen: Node = $Abilities/RegenEnergyAbility
-@onready var creature_data = get_node("../CreatureData")
+@onready var creature_data = CreatureData # ref autoload
 
 var this_creature_type = "player"
 
@@ -56,6 +56,7 @@ var current_state: PlayerState = PlayerState.IDLE:
 			emit_signal("state_changed", value)
 
 func _ready():
+	#GameManager.restore_player_state(self)
 	# get center coords of screen
 	var center_position = get_viewport_rect().size / 2
 	
@@ -120,6 +121,10 @@ func grow():
 	update_speed()
 	emit_signal("grew")
 
+func die() -> void:
+	pass
+	#GameManager.save_player_state(self)
+	#GameManager game over screen or instant respawn
 
 # TODO: functionalize with can_eat, better grouping, creature data
 func _on_touch_area_entered(area: Area2D) -> void:

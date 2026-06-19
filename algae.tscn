@@ -22,7 +22,5 @@ shape = SubResource("CircleShape2D_8k7eq")
 material = SubResource("ShaderMaterial_sc1e2")
 texture = ExtResource("2_palpr")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_area_exited"]
