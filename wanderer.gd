@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 	
 
 	
-	# being eaten
+	# being eaten=
 	if being_eaten_by:
 		#set_flash(true)
 		eating_timer -= delta
