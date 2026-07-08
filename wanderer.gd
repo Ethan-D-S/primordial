@@ -37,6 +37,7 @@ func _physics_process(delta: float) -> void:
 
 		if eating_timer <= 0:
 			being_eaten_by.eat(mass, this_creature_type)
+			Effects.spawn_explosion(global_position)
 			queue_free()
 	
 	# check that target exists

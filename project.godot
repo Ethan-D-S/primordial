@@ -19,7 +19,7 @@ config/icon="res://icon.svg"
 
 CreatureData="*res://creature_data.gd"
 GameManager="*res://game_manager.gd"
-Explosion="*res://effects/explosion.tscn"
+Effects="*res://effects.gd"
 
 [display]
 
