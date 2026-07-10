@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjeaqrmdwmtxl"]
+
+[ext_resource type="Script" uid="uid://c1do6uq07jqx1" path="res://hunter.gd" id="1_hgowg"]
+[ext_resource type="Texture2D" uid="uid://fk2whyevnkcg" path="res://icon.svg" id="2_ink7b"]
+[ext_resource type="Shader" uid="uid://c4p3ti7qcvdqi" path="res://flash.gdshader" id="2_ln42d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4nunf"]
+shader = ExtResource("2_ln42d")
+shader_parameter/active = false
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ln42d"]
+radius = 65.0077
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4nunf"]
+radius = 2072.22
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ink7b"]
+size = Vector2(133, 132)
+
+[node name="Hunter" type="CharacterBody2D" groups=["hunter"]]
+script = ExtResource("1_hgowg")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_4nunf")
+position = Vector2(0.5, 0)
+scale = Vector2(1.00781, 1)
+texture = ExtResource("2_ink7b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_ln42d")
+
+[node name="sight" type="Area2D" parent="."]
+
+[node name="sightShape" type="CollisionShape2D" parent="sight"]
+shape = SubResource("CircleShape2D_4nunf")
+
+[node name="touch" type="Area2D" parent="."]
+
+[node name="touchShape" type="CollisionShape2D" parent="touch"]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_ink7b")

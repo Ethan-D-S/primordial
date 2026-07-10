@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://b2vhrsuuvp2b6"]
+[gd_scene load_steps=15 format=4 uid="uid://b2vhrsuuvp2b6"]
 
 [ext_resource type="Script" uid="uid://c3yuj13ywmp0t" path="res://main.gd" id="1_l6nlt"]
 [ext_resource type="PackedScene" uid="uid://b6a1pk6os5cjd" path="res://creatures/player.tscn" id="2_qm6ir"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://d3gnunp6g7ik1" path="res://spawn_manager.gd" id="5_q5hyo"]
 [ext_resource type="PackedScene" uid="uid://coekha85phtj6" path="res://creatures/algae.tscn" id="6_1cukn"]
 [ext_resource type="PackedScene" uid="uid://d2wrw7msswkpd" path="res://creatures/wanderer.tscn" id="7_162vb"]
+[ext_resource type="PackedScene" uid="uid://cjeaqrmdwmtxl" path="res://hunter.tscn" id="8_3v2p0"]
 [ext_resource type="Script" uid="uid://cepy0vitys7d" path="res://energy_hud.gd" id="8_naru3"]
 [ext_resource type="Texture2D" uid="uid://c43sb7m2fevkf" path="res://assets/sprites/energy.png" id="9_8ohcc"]
 [ext_resource type="Texture2D" uid="uid://jrqn38u0ve82" path="res://assets/sprites/energy_empty.png" id="10_warfv"]
@@ -78,6 +79,7 @@ position = Vector2(-65, -51)
 script = ExtResource("5_q5hyo")
 algae_scene = ExtResource("6_1cukn")
 wanderer_scene = ExtResource("7_162vb")
+hunter_scene = ExtResource("8_3v2p0")
 
 [node name="UI" type="CanvasLayer" parent="."]
 

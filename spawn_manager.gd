@@ -2,6 +2,7 @@ extends Node2D
 
 @export var algae_scene: PackedScene
 @export var wanderer_scene: PackedScene
+@export var hunter_scene: PackedScene
 
 # world dimensions: change when intended world size changes
 const WORLD_WIDTH = 19200.0
@@ -36,3 +37,8 @@ func generate_wanderer_spawn_location():
 	var x = randf_range(0, WORLD_WIDTH)
 	var y = randf_range(0, WORLD_HEIGHT)
 	return Vector2(x, y)
+
+func spawn_hunters(position: Vector2):
+	var new_hunter = hunter_scene.instantiate()
+	new_hunter.global_position = position
+	add_child(new_hunter)
