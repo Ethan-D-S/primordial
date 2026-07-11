@@ -105,7 +105,7 @@ func _on_touch_area_entered(area: Area2D) -> void:
 		area.start_being_eaten_by(self)
 	
 	# eating player
-	elif area.is_in_group("player") && area.get_parent().mass < mass:
+	elif area.is_in_group("player"):
 		area.get_parent().start_being_eaten_by(self)
 	
 	# eating wanderers

@@ -58,11 +58,10 @@ var current_state: PlayerState = PlayerState.IDLE:
 func _ready():
 	GameManager.restore_player_state(self)
 	# in future: spawn at marker
-	# get center coords of screen
-	var center_position = get_viewport_rect().size / 2
+	
 	
 	# set position to center
-	position = center_position
+	position = $"../PlayerSpawn".position
 	#ensure starting size is correct for mass
 	grow()
 

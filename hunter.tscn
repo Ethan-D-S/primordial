@@ -12,10 +12,10 @@ shader_parameter/active = false
 radius = 65.0077
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4nunf"]
-radius = 2072.22
+radius = 1189.06
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ink7b"]
-size = Vector2(133, 132)
+size = Vector2(139, 139)
 
 [node name="Hunter" type="CharacterBody2D" groups=["hunter"]]
 script = ExtResource("1_hgowg")
@@ -38,5 +38,7 @@ shape = SubResource("CircleShape2D_4nunf")
 [node name="touch" type="Area2D" parent="."]
 
 [node name="touchShape" type="CollisionShape2D" parent="touch"]
-position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_ink7b")
+
+[connection signal="area_entered" from="touch" to="." method="_on_touch_area_entered"]
+[connection signal="area_exited" from="touch" to="." method="_on_touch_area_exited"]

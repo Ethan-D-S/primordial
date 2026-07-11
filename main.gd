@@ -10,8 +10,7 @@ func populate_world(algae_count, wanderer_count):
 	for i in wanderer_count:
 		spawner.spawn_wanderers(spawner.generate_wanderer_spawn_location())
 	
-	# hunter test
-	spawner.spawn_hunters(spawner.generate_wanderer_spawn_location())
+	spawner.spawn_hunters($HunterSpawn.global_position)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
