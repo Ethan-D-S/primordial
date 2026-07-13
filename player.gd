@@ -40,6 +40,7 @@ var being_eaten_by = null
 
 @onready var dash: Node = $Abilities/DashAbility
 @onready var regen: Node = $Abilities/RegenEnergyAbility
+@onready var spawn_position = $"../PlayerSpawn".global_position
 @onready var creature_data = CreatureData # ref autoload
 
 var this_creature_type = "player"
@@ -58,10 +59,8 @@ var current_state: PlayerState = PlayerState.IDLE:
 func _ready():
 	GameManager.restore_player_state(self)
 	# in future: spawn at marker
-	
-	
 	# set position to center
-	position = $"../PlayerSpawn".position
+	global_position = spawn_position
 	#ensure starting size is correct for mass
 	grow()
 

@@ -247,6 +247,7 @@ animation = &"recharge"
 
 [node name="RegenSound" type="AudioStreamPlayer" parent="Abilities/RegenEnergyAbility"]
 stream = ExtResource("7_dw050")
+volume_db = -14.92
 
 [node name="DashAbility" type="Node" parent="Abilities"]
 script = ExtResource("6_2hs0m")
