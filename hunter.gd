@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var base_speed = 300
+var base_speed = 100
 var speed = base_speed
 
 var base_mass = 5
