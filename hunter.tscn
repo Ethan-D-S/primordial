@@ -12,7 +12,7 @@ shader_parameter/active = false
 radius = 65.0077
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4nunf"]
-radius = 1189.06
+radius = 1758.58
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ink7b"]
 size = Vector2(139, 139)

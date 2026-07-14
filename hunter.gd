@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-var base_speed = 100
+var base_speed = 90
 var speed = base_speed
 
-var base_mass = 5
+var base_mass = 10
 var mass = base_mass
 
 var target: Node2D = null
