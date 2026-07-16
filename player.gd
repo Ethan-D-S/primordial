@@ -46,6 +46,7 @@ var being_eaten_by = null
 var this_creature_type = "player"
 
 ## Player States
+# used for animation
 enum PlayerState {IDLE, MOVING}
 
 # setter for movement states
