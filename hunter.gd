@@ -90,6 +90,20 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
+## All state transitions should go through this so we get a consistent,
+## complete log of what the hunter is doing and why.
+func _change_state(new_state: State) -> void:
+	if new_state == state:
+		return
+	print("[Hunter %s] %s -> %s | target: %s" % [
+		get_instance_id(),
+		State.keys()[state],
+		State.keys()[new_state],
+		target
+	])
+	state = new_state
+
+
 ## Returns true once redirect_timer has expired, resetting it to redirect_duration.
 ## Callers are responsible for setting redirect_duration and current_direction
 ## for their own state before or after calling this.
@@ -117,19 +131,22 @@ func tick_wander(delta: float) -> void:
 	var found = find_target()
 	if found:
 		target = found
-		state = State.STALK
+		_change_state(State.STALK)
 		next_burst_timer = randf_range(burst_interval_min, burst_interval_max)
+		print("  next burst in %.1fs" % next_burst_timer)
 
 
 # ---------------- STALK ----------------
 
 func tick_stalk(delta: float) -> void:
 	if not is_instance_valid(target):
+		print("[Hunter] target invalid during STALK")
 		target = null
-		state = State.WANDER
+		_change_state(State.WANDER)
 		return
 
 	if not is_on_screen(target):
+		print("[Hunter] target went off-screen during STALK")
 		_enter_search()
 		return
 
@@ -142,13 +159,14 @@ func tick_stalk(delta: float) -> void:
 
 	next_burst_timer -= delta
 	if next_burst_timer <= 0:
+		print("[Hunter] burst timer expired, charging up")
 		_enter_charge()
 
 
 # ---------------- CHARGE ----------------
 
 func _enter_charge() -> void:
-	state = State.CHARGE
+	_change_state(State.CHARGE)
 	charge_timer = charge_duration
 	charge_flash_frame = 0
 	charge_flash_on = false
@@ -156,9 +174,10 @@ func _enter_charge() -> void:
 
 func tick_charge(delta: float) -> void:
 	if not is_instance_valid(target):
+		print("[Hunter] target invalid during CHARGE, aborting")
 		set_flash(false)
 		target = null
-		state = State.WANDER
+		_change_state(State.WANDER)
 		return
 
 	charge_timer -= delta
@@ -171,16 +190,18 @@ func tick_charge(delta: float) -> void:
 		set_flash(charge_flash_on)
 
 	if charge_timer <= 0:
+		print("[Hunter] charge complete, launching burst")
 		_enter_burst()
 
 
 # ---------------- BURST ----------------
 
 func _enter_burst() -> void:
-	state = State.BURST
+	_change_state(State.BURST)
 	set_flash(false)
 	burst_direction = (target.global_position - global_position).normalized()
 	burst_timer = burst_duration
+	print("  burst direction: %s, toward target at %s" % [burst_direction, target.global_position])
 
 
 func tick_burst(delta: float) -> void:
@@ -190,18 +211,21 @@ func tick_burst(delta: float) -> void:
 	burst_timer -= delta
 	if burst_timer <= 0:
 		if is_instance_valid(target) and is_on_screen(target):
-			state = State.STALK
+			print("[Hunter] burst finished, target still visible, resuming STALK")
+			_change_state(State.STALK)
 			redirect_timer = 0.0
 			next_burst_timer = randf_range(burst_interval_min, burst_interval_max)
 		else:
+			print("[Hunter] burst finished, target lost or off-screen, entering SEARCH")
 			_enter_search()
 
 
 # ---------------- SEARCH (losable) ----------------
 
 func _enter_search() -> void:
-	state = State.SEARCH
+	_change_state(State.SEARCH)
 	search_timer = search_duration
+	print("  will search for %.1fs before giving up" % search_duration)
 
 
 func tick_search(delta: float) -> void:
@@ -209,13 +233,15 @@ func tick_search(delta: float) -> void:
 	target_speed = 0.0  # hold position while waiting for the target to reappear
 
 	if is_instance_valid(target) and is_on_screen(target):
-		state = State.STALK
+		print("[Hunter] re-acquired target during SEARCH")
+		_change_state(State.STALK)
 		redirect_timer = 0.0
 		return
 
 	if search_timer <= 0:
+		print("[Hunter] gave up SEARCH, reacquire cooldown: %.1fs" % reacquire_cooldown)
 		target = null
-		state = State.WANDER
+		_change_state(State.WANDER)
 		reacquire_timer = reacquire_cooldown
 
 
