@@ -13,13 +13,13 @@ config_version=5
 config/name="Primordial"
 run/main_scene="uid://b2vhrsuuvp2b6"
 config/features=PackedStringArray("4.4", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="res://assets/sprites/icon.svg"
 
 [autoload]
 
-CreatureData="*res://creature_data.gd"
-GameManager="*res://game_manager.gd"
-Effects="*res://effects.gd"
+CreatureData="*res://creatures/creature_data.gd"
+GameManager="*res://managers/game_manager.gd"
+Effects="*res://effects/effects.gd"
 
 [display]
 

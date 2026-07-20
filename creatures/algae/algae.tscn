@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://coekha85phtj6"]
 
-[ext_resource type="Script" uid="uid://dc41yktv0inm5" path="res://algae.gd" id="1_gv6lf"]
-[ext_resource type="Shader" uid="uid://c4p3ti7qcvdqi" path="res://flash.gdshader" id="2_8k7eq"]
+[ext_resource type="Script" uid="uid://dc41yktv0inm5" path="res://creatures/algae/algae.gd" id="1_gv6lf"]
+[ext_resource type="Shader" uid="uid://c4p3ti7qcvdqi" path="res://shaders/flash.gdshader" id="2_8k7eq"]
 [ext_resource type="Texture2D" uid="uid://d1xalej2tte1o" path="res://assets/sprites/algae.png" id="2_palpr"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8k7eq"]

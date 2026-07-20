@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://d2wrw7msswkpd"]
 
-[ext_resource type="Script" uid="uid://bx5d4baxvpo0q" path="res://wanderer.gd" id="1_icjva"]
+[ext_resource type="Script" uid="uid://bx5d4baxvpo0q" path="res://creatures/wanderer/wanderer.gd" id="1_icjva"]
 [ext_resource type="Texture2D" uid="uid://bfbimgok4hahf" path="res://assets/sprites/wanderer.png" id="2_3amrx"]
-[ext_resource type="Shader" uid="uid://c4p3ti7qcvdqi" path="res://flash.gdshader" id="2_cul7r"]
+[ext_resource type="Shader" uid="uid://c4p3ti7qcvdqi" path="res://shaders/flash.gdshader" id="2_cul7r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3amrx"]
 radius = 14.0
