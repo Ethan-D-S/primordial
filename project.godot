@@ -25,6 +25,8 @@ Effects="*res://effects/effects.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 window/vsync/vsync_mode=3
 mouse_cursor/custom_image="uid://dtuednwqh6eip"
 
@@ -48,5 +50,6 @@ regenerate={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
