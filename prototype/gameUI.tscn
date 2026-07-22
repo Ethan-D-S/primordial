@@ -1,15 +1,30 @@
-[gd_scene load_steps=5 format=3 uid="uid://tm5m5l4imxsq"]
+[gd_scene load_steps=8 format=3 uid="uid://tm5m5l4imxsq"]
 
 [ext_resource type="Texture2D" uid="uid://bgyb2hqwccfb2" path="res://assets/indev assets/menu1.png" id="1_6d2cr"]
-[ext_resource type="Texture2D" uid="uid://b67s4bj7efdvr" path="res://assets/sprites/DNA.png" id="2_cp0iw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cp0iw"]
 atlas = ExtResource("1_6d2cr")
 region = Rect2(16.1666, 15.9577, 127.742, 96.149)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6d2cr"]
+atlas = ExtResource("1_6d2cr")
+region = Rect2(153.918, 18.9224, 31.087, 24.1648)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_j821g"]
-atlas = ExtResource("2_cp0iw")
-region = Rect2(6.81988, 0.929028, 18.3129, 30.6857)
+atlas = ExtResource("1_6d2cr")
+region = Rect2(192.945, 19.9635, 31.1603, 24.1666)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddt51"]
+atlas = ExtResource("1_6d2cr")
+region = Rect2(232.01, 20.9515, 31.0425, 24.1052)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4uxbk"]
+atlas = ExtResource("1_6d2cr")
+region = Rect2(153.952, 55.985, 31.1081, 24.0728)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtfou"]
+atlas = ExtResource("1_6d2cr")
+region = Rect2(152.964, 85.9428, 109.045, 22.0633)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -29,7 +44,7 @@ anchor_bottom = 0.5
 offset_left = -398.0
 offset_top = -272.0
 offset_right = 402.0
-offset_bottom = 243.0
+offset_bottom = 323.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_cp0iw")
@@ -50,33 +65,237 @@ theme_override_constants/margin_bottom = 40
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Button" type="Button" parent="TextureRect/MarginContainer/VBoxContainer"]
+[node name="GMLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "test button"
-icon = SubResource("AtlasTexture_j821g")
+text = "Genetic Material"
+horizontal_alignment = 1
 
-[node name="Button2" type="Button" parent="TextureRect/MarginContainer/VBoxContainer"]
+[node name="GM row" type="HBoxContainer" parent="TextureRect/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "test button"
+theme_override_constants/separation = 80
+alignment = 1
 
-[node name="Button3" type="Button" parent="TextureRect/MarginContainer/VBoxContainer"]
+[node name="blueGM" type="TextureRect" parent="TextureRect/MarginContainer/VBoxContainer/GM row"]
+custom_minimum_size = Vector2(150, 128)
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "test button"
+texture = SubResource("AtlasTexture_6d2cr")
 
-[node name="Button4" type="Button" parent="TextureRect/MarginContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "test button"
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/VBoxContainer/GM row/blueGM"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -38.0
+offset_right = -6.0
+offset_bottom = 39.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 56
+text = "50"
 
-[node name="Button5" type="Button" parent="TextureRect/MarginContainer/VBoxContainer"]
+[node name="greenGM" type="TextureRect" parent="TextureRect/MarginContainer/VBoxContainer/GM row"]
+custom_minimum_size = Vector2(150, 128)
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "test button"
+texture = SubResource("AtlasTexture_j821g")
 
-[node name="Button6" type="Button" parent="TextureRect/MarginContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/VBoxContainer/GM row/greenGM"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = -39.0
+offset_right = -7.0
+offset_bottom = 38.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 56
+text = "10"
+
+[node name="redGM" type="TextureRect" parent="TextureRect/MarginContainer/VBoxContainer/GM row"]
+custom_minimum_size = Vector2(150, 128)
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "test button"
+texture = SubResource("AtlasTexture_ddt51")
+
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/VBoxContainer/GM row/redGM"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -38.5
+offset_bottom = 38.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_font_sizes/font_size = 56
+text = "5"
+
+[node name="AbilitiesLabel" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Abilities"
+horizontal_alignment = 1
+
+[node name="AbilitiesRow" type="HBoxContainer" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 80
+
+[node name="Dash" type="TextureRect" parent="TextureRect/MarginContainer/VBoxContainer/AbilitiesRow"]
+custom_minimum_size = Vector2(150, 128)
+layout_mode = 2
+texture = SubResource("AtlasTexture_4uxbk")
+
+[node name="Button" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/AbilitiesRow/Dash"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.0
+offset_top = -58.0
+offset_right = 70.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Dash"
+flat = true
+
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/VBoxContainer/AbilitiesRow/Dash"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "cost: 5"
+
+[node name="Regen" type="TextureRect" parent="TextureRect/MarginContainer/VBoxContainer/AbilitiesRow"]
+custom_minimum_size = Vector2(150, 128)
+layout_mode = 2
+texture = SubResource("AtlasTexture_4uxbk")
+
+[node name="Button" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/AbilitiesRow/Regen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.0
+offset_top = -58.0
+offset_right = 70.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Regenerate"
+flat = true
+
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/VBoxContainer/AbilitiesRow/Regen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "cost: 2"
+
+[node name="Enzyme" type="TextureRect" parent="TextureRect/MarginContainer/VBoxContainer/AbilitiesRow"]
+custom_minimum_size = Vector2(150, 128)
+layout_mode = 2
+texture = SubResource("AtlasTexture_4uxbk")
+
+[node name="Button" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/AbilitiesRow/Enzyme"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -69.0
+offset_top = -58.0
+offset_right = 70.0
+offset_bottom = 58.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Enzyme Blast"
+flat = true
+
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/VBoxContainer/AbilitiesRow/Enzyme"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "cost: 12"
+
+[node name="spacer" type="Label" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="GrowRow" type="HBoxContainer" parent="TextureRect/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Grow" type="TextureRect" parent="TextureRect/MarginContainer/VBoxContainer/GrowRow"]
+custom_minimum_size = Vector2(650.36, 128)
+layout_mode = 2
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_jtfou")
+
+[node name="Button" type="Button" parent="TextureRect/MarginContainer/VBoxContainer/GrowRow/Grow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Grow"
+flat = true
+
+[node name="Label" type="Label" parent="TextureRect/MarginContainer/VBoxContainer/GrowRow/Grow"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -23.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "cost: 5"
+
+[node name="MenuLabel" type="Label" parent="TextureRect"]
+layout_mode = 0
+offset_left = 356.0
+offset_top = -26.0
+offset_right = 450.0
+offset_bottom = 23.0
+text = "Game Menu
+"
