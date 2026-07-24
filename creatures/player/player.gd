@@ -58,7 +58,7 @@ var current_state: PlayerState = PlayerState.IDLE:
 			emit_signal("state_changed", value)
 
 func _ready():
-	GameManager.restore_player_state(self)
+	
 	# in future: spawn at marker
 	# set position to center
 	global_position = spawn_position
@@ -123,7 +123,7 @@ func grow():
 	emit_signal("grew")
 
 func die() -> void:
-	GameManager.player_dies(self, false)
+	GameManager.player_dies(self)
 
 # TODO: functionalize with can_eat, better grouping, creature data
 func _on_touch_area_entered(area: Area2D) -> void:
